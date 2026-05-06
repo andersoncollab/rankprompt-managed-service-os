@@ -272,6 +272,88 @@
         line-height: 1.7;
       }
 
+      .command-shell {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: white;
+        box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+        overflow: hidden;
+      }
+
+      .command-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        align-items: center;
+        border-bottom: 1px solid var(--line);
+        background: #f8fafc;
+        padding: 18px 20px;
+      }
+
+      .command-top h3 {
+        margin-bottom: 0;
+      }
+
+      .command-table {
+        overflow-x: auto;
+      }
+
+      .command-row {
+        display: grid;
+        grid-template-columns: 1.12fr 0.9fr 0.72fr 1.12fr 0.82fr 0.9fr 1.12fr;
+        min-width: 1120px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .command-row:last-child {
+        border-bottom: 0;
+      }
+
+      .command-row > div {
+        padding: 14px 16px;
+        color: #344054;
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .command-row.header > div {
+        color: #667085;
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .client-name {
+        color: var(--ink);
+        font-weight: 850;
+      }
+
+      .pill {
+        display: inline-flex;
+        width: fit-content;
+        border-radius: 999px;
+        padding: 5px 8px;
+        font-size: 11px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      .pill.ready {
+        background: var(--green-soft);
+        color: var(--green);
+      }
+
+      .pill.review {
+        background: var(--amber-soft);
+        color: var(--amber);
+      }
+
+      .pill.hold {
+        background: var(--purple-soft);
+        color: var(--purple);
+      }
+
       .warning {
         margin-top: 18px;
         border: 1px solid #f7d990;
@@ -346,6 +428,11 @@
         background: var(--blue-soft);
       }
 
+      .side-card.comms {
+        border-color: #d7c9ff;
+        background: var(--purple-soft);
+      }
+
       ul {
         margin: 16px 0 0;
         padding: 0;
@@ -385,6 +472,41 @@
         background: rgba(255, 255, 255, 0.06);
         color: white;
         padding: 13px;
+      }
+
+      .agent-run-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .run-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: white;
+        padding: 18px;
+      }
+
+      .run-card .num {
+        margin-bottom: 14px;
+      }
+
+      .run-card p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .signature-line {
+        margin-top: 16px;
+        border-left: 3px solid var(--purple);
+        background: white;
+        padding: 12px 14px;
+        color: #344054;
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.6;
       }
 
       .calendar-shell {
@@ -518,7 +640,8 @@
 
         .grid-4,
         .grid-3,
-        .grid-2 {
+        .grid-2,
+        .agent-run-grid {
           grid-template-columns: 1fr;
         }
 
@@ -620,10 +743,72 @@
         <div class="wrap">
           <div class="section-head">
             <div>
+              <h2>Executive command center</h2>
+              <p>
+                Leadership should be able to see the whole managed-service arm in one place: every
+                client, current stage, owner, agent output, review status, blocker, and next action.
+              </p>
+            </div>
+            <span class="badge">Portfolio-level operating view</span>
+          </div>
+          <div class="command-shell">
+            <div class="command-top">
+              <div>
+                <div class="label">Managed service pipeline</div>
+                <h3>Client work in motion</h3>
+              </div>
+              <span class="pill review">Human-controlled</span>
+            </div>
+            <div class="command-table">
+              <div class="command-row header">
+                <div>Client</div>
+                <div>Stage</div>
+                <div>Owner</div>
+                <div>Agent output</div>
+                <div>Review status</div>
+                <div>Blocker</div>
+                <div>Next action</div>
+              </div>
+              <div class="command-row">
+                <div class="client-name">Multi-location auto client</div>
+                <div>Baseline visibility</div>
+                <div>Naz / Ops</div>
+                <div>Prompt discovery, quick wins, first deliverable package</div>
+                <div><span class="pill review">Needs review</span></div>
+                <div>Website handoff</div>
+                <div>Approve package, then send plain-text recap</div>
+              </div>
+              <div class="command-row">
+                <div class="client-name">Local events client</div>
+                <div>Onboarding</div>
+                <div>Service owner</div>
+                <div>Activation reminder and strategy-call follow-up</div>
+                <div><span class="pill hold">Waiting</span></div>
+                <div>Subscription or call booking</div>
+                <div>Keep reminder simple and personal</div>
+              </div>
+              <div class="command-row">
+                <div class="client-name">Growth retainer client</div>
+                <div>Monthly execution</div>
+                <div>Content lead</div>
+                <div>Article calendar, draft briefs, citation opportunities</div>
+                <div><span class="pill ready">Ready</span></div>
+                <div>Internal approval</div>
+                <div>Stage one review link if ops approves</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="white">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
               <h2>Two sides of the system</h2>
               <p>
-                The system should serve internal fulfillment first, then expose the right pieces to
-                the client through a controlled dashboard when the team decides it is appropriate.
+                The system should serve internal fulfillment first, then make selected pieces
+                available through an optional review link when the team decides it is appropriate.
               </p>
             </div>
           </div>
@@ -643,20 +828,44 @@
               <h3>Controlled sharing</h3>
               <ul>
                 <li>Choose what is internal-only</li>
-                <li>Publish selected items to the client dashboard</li>
-                <li>Send plain text or HTML only when useful</li>
+                <li>Stage selected items for a review link</li>
+                <li>Send plain text or HTML only when it fits the moment</li>
                 <li>Keep Tomas, Naz, or ops in control</li>
               </ul>
             </article>
             <article class="side-card client">
-              <div class="label">Client side</div>
-              <h3>Review dashboard</h3>
+              <div class="label">Optional client review side</div>
+              <h3>Review dashboard when shared</h3>
               <ul>
                 <li>Monthly article calendar in one link</li>
                 <li>Draft review with comments</li>
                 <li>Approve or request edits</li>
                 <li>See planned work without long email threads</li>
               </ul>
+            </article>
+          </div>
+          <div class="grid grid-2" style="margin-top: 16px">
+            <article class="side-card admin">
+              <div class="label">Editable by default</div>
+              <h3>Admin flexibility stays close to the work</h3>
+              <ul>
+                <li>Edit titles, dates, owners, article briefs, and visibility</li>
+                <li>Change status without notifying the client</li>
+                <li>Hold deliverables until Naz, Tomas, or ops approves</li>
+              </ul>
+            </article>
+            <article class="side-card comms">
+              <div class="label">Plain-text communication layer</div>
+              <h3>Personal delivery notes stay human</h3>
+              <ul>
+                <li>Use plain text for most deliverable updates after onboarding</li>
+                <li>Include the relevant RankPrompt or client x RankPrompt signature</li>
+                <li>Reserve HTML for onboarding, payment, and structured reminders</li>
+              </ul>
+              <div class="signature-line">
+                Best,<br />
+                Client Name x RankPrompt
+              </div>
             </article>
           </div>
         </div>
@@ -672,7 +881,7 @@
               health across the managed service arm.
             </p>
             <div class="note">
-              Client-facing automation should never mean blind automation. Every meaningful
+              Client-visible automation should never mean blind automation. Every meaningful
               deliverable can move through review before it is sent, published, or assigned.
             </div>
           </div>
@@ -705,6 +914,53 @@
               <span class="num">07</span>
               <div><h3>Reporting</h3><p>Monthly recap, movement by prompt, completed work, blockers, priorities.</p></div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <h2>Stage-based agent runs</h2>
+              <p>
+                Each milestone should map to a repeatable agent-assisted run, fueled by the client
+                KG and handed to a human reviewer before anything becomes client-visible.
+              </p>
+            </div>
+            <span class="badge">Agents prepare, operators decide</span>
+          </div>
+          <div class="agent-run-grid">
+            <article class="run-card">
+              <span class="num">01</span>
+              <h3>Onboarding agent</h3>
+              <p>Prepares activation reminders, access checklists, strategy-call notes, and setup tasks.</p>
+            </article>
+            <article class="run-card">
+              <span class="num">02</span>
+              <h3>Prompt discovery agent</h3>
+              <p>Uses markets, ICP, competitors, and offers to prepare prompt categories and findings.</p>
+            </article>
+            <article class="run-card">
+              <span class="num">03</span>
+              <h3>Visibility report agent</h3>
+              <p>Runs or attaches AI visibility reports, competitor mentions, and baseline movement.</p>
+            </article>
+            <article class="run-card">
+              <span class="num">04</span>
+              <h3>Content calendar agent</h3>
+              <p>Packages monthly article plans, briefs, draft links, review status, and publish timing.</p>
+            </article>
+            <article class="run-card">
+              <span class="num">05</span>
+              <h3>Citation and Reddit agent</h3>
+              <p>Finds listicles, source opportunities, subreddit threads, and contributor tasks.</p>
+            </article>
+            <article class="run-card">
+              <span class="num">06</span>
+              <h3>Monthly recap agent</h3>
+              <p>Summarizes completed work, blockers, visibility changes, and next-month priorities.</p>
+            </article>
           </div>
         </div>
       </section>
