@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RankPrompt Managed Service OS</title>
+    <meta
+      name="description"
+      content="Visual overview of the RankPrompt managed-service operating system concept."
+    />
+    <style>
+      :root {
+        --ink: #111827;
+        --muted: #56657a;
+        --soft: #f7f8fb;
+        --line: #dfe4ee;
+        --purple: #6b4eff;
+        --purple-soft: #f2efff;
+        --blue: #0877a8;
+        --blue-soft: #edf8ff;
+        --green: #067647;
+        --green-soft: #ecfdf3;
+        --amber: #9a5b00;
+        --amber-soft: #fff8e6;
+        --slate: #172033;
+        --radius: 14px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--soft);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        letter-spacing: 0;
+      }
+
+      main {
+        overflow-x: hidden;
+      }
+
+      .wrap {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .hero {
+        background: white;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: 36px;
+        align-items: end;
+        padding: 44px 0 36px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        width: fit-content;
+        margin: 0 0 18px;
+        padding: 7px 12px;
+        border: 1px solid #e5dcff;
+        border-radius: 999px;
+        background: var(--purple-soft);
+        color: var(--purple);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 880px;
+        margin-bottom: 18px;
+        font-size: clamp(38px, 6vw, 64px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 780px;
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.75;
+      }
+
+      .principle {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: #f8fafc;
+        padding: 18px;
+      }
+
+      .label {
+        color: #7a8799;
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .principle p:last-child {
+        margin: 6px 0 0;
+        color: #273244;
+        font-size: 14px;
+        font-weight: 750;
+        line-height: 1.7;
+      }
+
+      section {
+        padding: 44px 0;
+      }
+
+      section.white {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        background: white;
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 28px;
+        align-items: end;
+        margin-bottom: 24px;
+      }
+
+      .section-head p {
+        max-width: 720px;
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      h2 {
+        margin-bottom: 10px;
+        font-size: clamp(26px, 3vw, 36px);
+        line-height: 1.12;
+      }
+
+      h3 {
+        margin-bottom: 8px;
+        font-size: 19px;
+        line-height: 1.25;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card {
+        position: relative;
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: white;
+        padding: 22px;
+        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+      }
+
+      .card.soft {
+        background: #f8fafc;
+      }
+
+      .card p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        margin-bottom: 18px;
+        border-radius: 10px;
+        background: var(--purple-soft);
+        color: var(--purple);
+        font-size: 20px;
+        font-weight: 900;
+      }
+
+      .blue .icon,
+      .blue {
+        color: var(--blue);
+      }
+
+      .green .icon,
+      .green {
+        color: var(--green);
+      }
+
+      .amber .icon,
+      .amber {
+        color: var(--amber);
+      }
+
+      .blue .icon {
+        background: var(--blue-soft);
+      }
+
+      .green .icon {
+        background: var(--green-soft);
+      }
+
+      .amber .icon {
+        background: var(--amber-soft);
+      }
+
+      .arrow::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: -18px;
+        width: 20px;
+        height: 1px;
+        background: #cbd5e1;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: 0.78fr 1.22fr;
+        gap: 36px;
+        align-items: start;
+      }
+
+      .note {
+        margin-top: 22px;
+        border: 1px solid #b8ecd1;
+        border-radius: var(--radius);
+        background: var(--green-soft);
+        padding: 18px;
+        color: #064e3b;
+        font-size: 14px;
+        font-weight: 680;
+        line-height: 1.7;
+      }
+
+      .warning {
+        margin-top: 18px;
+        border: 1px solid #f7d990;
+        border-radius: var(--radius);
+        background: var(--amber-soft);
+        padding: 18px;
+        color: #6f3f00;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.7;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 12px;
+      }
+
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 54px minmax(0, 1fr);
+        gap: 14px;
+        align-items: start;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #f8fafc;
+        padding: 16px;
+      }
+
+      .num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: white;
+        color: var(--purple);
+        font-size: 14px;
+        font-weight: 900;
+        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+      }
+
+      .timeline-item h3 {
+        margin-bottom: 4px;
+        font-size: 15px;
+      }
+
+      .timeline-item p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .side-card {
+        border-radius: var(--radius);
+        padding: 22px;
+        border: 1px solid var(--line);
+      }
+
+      .side-card.admin {
+        background: #f8fafc;
+      }
+
+      .side-card.gate {
+        border-color: #f2cd72;
+        background: var(--amber-soft);
+      }
+
+      .side-card.client {
+        border-color: #a6dbf5;
+        background: var(--blue-soft);
+      }
+
+      ul {
+        margin: 16px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      li {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+        color: #344054;
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      li::before {
+        content: "✓";
+        flex: 0 0 18px;
+        color: var(--green);
+        font-weight: 900;
+      }
+
+      .dark-panel {
+        border-radius: var(--radius);
+        background: var(--slate);
+        color: white;
+        padding: 24px;
+      }
+
+      .dark-panel p {
+        color: #c8d1df;
+      }
+
+      .dark-panel .mini {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.06);
+        color: white;
+        padding: 13px;
+      }
+
+      .calendar-shell {
+        display: grid;
+        grid-template-columns: 0.82fr 1.18fr;
+        gap: 26px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: white;
+        padding: 22px;
+      }
+
+      .action-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .action {
+        border-radius: 10px;
+        background: white;
+        padding: 11px 12px;
+        color: #39485e;
+        font-size: 13px;
+        font-weight: 700;
+        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+      }
+
+      .month-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: #f8fafc;
+        padding: 18px;
+      }
+
+      .month-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .badge {
+        display: inline-flex;
+        width: fit-content;
+        border-radius: 999px;
+        border: 1px solid #b8ecd1;
+        background: var(--green-soft);
+        color: var(--green);
+        padding: 6px 10px;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .week-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .week {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: white;
+        padding: 15px;
+      }
+
+      .week-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .status {
+        border-radius: 999px;
+        padding: 5px 8px;
+        font-size: 11px;
+        font-weight: 900;
+      }
+
+      .status.review {
+        background: var(--amber-soft);
+        color: var(--amber);
+      }
+
+      .status.internal {
+        background: var(--blue-soft);
+        color: var(--blue);
+      }
+
+      .status.draft {
+        background: var(--purple-soft);
+        color: var(--purple);
+      }
+
+      .status.planned {
+        background: #eef2f7;
+        color: #536176;
+      }
+
+      .bar {
+        height: 8px;
+        margin-top: 14px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: #edf1f6;
+      }
+
+      .bar span {
+        display: block;
+        height: 100%;
+        border-radius: 999px;
+      }
+
+      .footer {
+        padding: 34px 0;
+        color: #667085;
+        font-size: 13px;
+      }
+
+      @media (max-width: 980px) {
+        .hero-inner,
+        .split,
+        .calendar-shell {
+          grid-template-columns: 1fr;
+        }
+
+        .grid-4,
+        .grid-3,
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+
+        .arrow::after {
+          display: none;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .wrap {
+          width: min(100% - 32px, 1180px);
+        }
+
+        section {
+          padding: 34px 0;
+        }
+
+        .hero-inner {
+          padding: 32px 0;
+        }
+
+        .lead {
+          font-size: 15px;
+        }
+
+        .section-head {
+          display: block;
+        }
+
+        .week-grid,
+        .action-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <div class="wrap hero-inner">
+          <div>
+            <div class="eyebrow">RankPrompt managed service vision</div>
+            <h1>Build the fulfillment cockpit, not just better emails.</h1>
+            <p class="lead">
+              The goal is an AI-driven client management system where agents prepare high-quality
+              deliverables, humans review the work, the portal tracks every stage, and communication
+              stays controlled and personal.
+            </p>
+          </div>
+          <aside class="principle">
+            <div class="label">Operating principle</div>
+            <p>AI drafts the work. Humans approve and personalize it. The system packages delivery.</p>
+          </aside>
+        </div>
+      </header>
+
+      <section>
+        <div class="wrap grid grid-4">
+          <article class="card arrow">
+            <div class="icon">KG</div>
+            <div class="label">Client knowledge graph</div>
+            <h3>Structured client context</h3>
+            <p>
+              ICP, markets, competitors, offers, sources, reviews, prior deliverables, and client
+              preferences.
+            </p>
+          </article>
+          <article class="card arrow blue">
+            <div class="icon">AI</div>
+            <div class="label">Agents</div>
+            <h3>AI-assisted production</h3>
+            <p>
+              Agents use the KG to draft reports, package evidence, create tasks, and prepare
+              client-ready outputs.
+            </p>
+          </article>
+          <article class="card arrow green">
+            <div class="icon">OK</div>
+            <div class="label">Review</div>
+            <h3>Executive control layer</h3>
+            <p>
+              Humans approve, edit, personalize, and decide what gets sent, published, assigned, or
+              escalated.
+            </p>
+          </article>
+          <article class="card amber">
+            <div class="icon">GO</div>
+            <div class="label">Delivery</div>
+            <h3>Controlled communication</h3>
+            <p>
+              The system packages deliverables and prepares the right communication style for the
+              moment.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="white">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <h2>Two sides of the system</h2>
+              <p>
+                The system should serve internal fulfillment first, then expose the right pieces to
+                the client through a controlled dashboard when the team decides it is appropriate.
+              </p>
+            </div>
+          </div>
+          <div class="grid grid-3">
+            <article class="side-card admin">
+              <div class="label">Our side</div>
+              <h3>Admin fulfillment cockpit</h3>
+              <ul>
+                <li>AI agent drafts and report outputs</li>
+                <li>Editable deliverables, tasks, owners, and dates</li>
+                <li>Internal comments and quality review</li>
+                <li>Approval gate before anything becomes visible</li>
+              </ul>
+            </article>
+            <article class="side-card gate">
+              <div class="label">Gate</div>
+              <h3>Controlled sharing</h3>
+              <ul>
+                <li>Choose what is internal-only</li>
+                <li>Publish selected items to the client dashboard</li>
+                <li>Send plain text or HTML only when useful</li>
+                <li>Keep Tomas, Naz, or ops in control</li>
+              </ul>
+            </article>
+            <article class="side-card client">
+              <div class="label">Client side</div>
+              <h3>Review dashboard</h3>
+              <ul>
+                <li>Monthly article calendar in one link</li>
+                <li>Draft review with comments</li>
+                <li>Approve or request edits</li>
+                <li>See planned work without long email threads</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="white">
+        <div class="wrap split">
+          <div>
+            <h2>Managed service lifecycle</h2>
+            <p class="lead">
+              Each client should have a visible stage, active deliverables, blockers, next actions,
+              and a communication record. This gives leadership a real-time view of fulfillment
+              health across the managed service arm.
+            </p>
+            <div class="note">
+              Client-facing automation should never mean blind automation. Every meaningful
+              deliverable can move through review before it is sent, published, or assigned.
+            </div>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="num">01</span>
+              <div><h3>Onboarding</h3><p>Subscription, strategy call, access checklist, portal setup.</p></div>
+            </div>
+            <div class="timeline-item">
+              <span class="num">02</span>
+              <div><h3>Strategy + KG</h3><p>Client facts, competitors, ICP, offers, and source inventory.</p></div>
+            </div>
+            <div class="timeline-item">
+              <span class="num">03</span>
+              <div><h3>Baseline Visibility</h3><p>Prompt discovery, AI visibility reports, competitor presence.</p></div>
+            </div>
+            <div class="timeline-item">
+              <span class="num">04</span>
+              <div><h3>Entity Optimization</h3><p>llms.txt, LLM info page, quick wins, schema, page fixes.</p></div>
+            </div>
+            <div class="timeline-item">
+              <span class="num">05</span>
+              <div><h3>Growth Deliverables</h3><p>Content calendar, citations, Reddit strategy, reviews, outreach.</p></div>
+            </div>
+            <div class="timeline-item">
+              <span class="num">06</span>
+              <div><h3>Execution Tracking</h3><p>Tasks for Reddit, outreach, review aggregation, content, implementation.</p></div>
+            </div>
+            <div class="timeline-item">
+              <span class="num">07</span>
+              <div><h3>Reporting</h3><p>Monthly recap, movement by prompt, completed work, blockers, priorities.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <h2>What the cockpit needs to show</h2>
+              <p>
+                The UI should make fulfillment obvious: what has been drafted, what needs review,
+                what has been approved, and what still needs an owner.
+              </p>
+            </div>
+            <span class="badge">KG, agents, tasks, reports, and comms stay in sync</span>
+          </div>
+          <div class="grid grid-4">
+            <article class="card">
+              <h3>Packaged deliverables</h3>
+              <ul>
+                <li>Prompt reports</li>
+                <li>Website quick wins</li>
+                <li>Content calendars</li>
+                <li>Citation and Reddit plans</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Task system</h3>
+              <ul>
+                <li>Linear or internal backend</li>
+                <li>Owner and due date</li>
+                <li>Status updates</li>
+                <li>Blocked states</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Report APIs</h3>
+              <ul>
+                <li>Trigger report runs</li>
+                <li>Attach outputs</li>
+                <li>Refresh dashboards</li>
+                <li>Track movement</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Contributor updates</h3>
+              <ul>
+                <li>Reddit posts</li>
+                <li>Review aggregation</li>
+                <li>Citation outreach</li>
+                <li>Website handoff</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="white">
+        <div class="wrap">
+          <div class="calendar-shell">
+            <div>
+              <div class="label" style="color: var(--blue)">One controlled review link</div>
+              <h2>Monthly article calendar review</h2>
+              <p class="lead">
+                Admin should be able to open one page for the month, see every planned article,
+                review drafts, leave comments, approve or request edits, and understand when each
+                piece is scheduled. Client sharing is optional and only happens after the team
+                decides it is useful.
+              </p>
+              <div class="card soft" style="margin-top: 18px">
+                <div class="label">Admin actions</div>
+                <div class="action-grid">
+                  <span class="action">Open draft</span>
+                  <span class="action">Add comment</span>
+                  <span class="action">Approve article</span>
+                  <span class="action">Request edit</span>
+                </div>
+              </div>
+              <div class="warning">
+                Nothing gets pushed to clients automatically. The system helps us prepare, organize,
+                and review. Tomas, Naz, or the service owner decides what gets sent.
+              </div>
+            </div>
+            <div class="month-card">
+              <div class="month-head">
+                <div>
+                  <div class="label">Example month</div>
+                  <h3 style="margin-bottom: 0">May content plan</h3>
+                </div>
+                <span class="badge">4 articles</span>
+              </div>
+              <div class="week-grid">
+                <article class="week">
+                  <div class="week-top"><b>Week 1</b><span class="status review">Client review</span></div>
+                  <h3>Houston BHPH roundup</h3>
+                  <div class="bar"><span style="width: 75%; background: #f6b73c"></span></div>
+                </article>
+                <article class="week">
+                  <div class="week-top"><b>Week 2</b><span class="status internal">Internal review</span></div>
+                  <h3>OKC financing comparison</h3>
+                  <div class="bar"><span style="width: 52%; background: #38a7d8"></span></div>
+                </article>
+                <article class="week">
+                  <div class="week-top"><b>Week 3</b><span class="status draft">Drafted</span></div>
+                  <h3>Spanish Houston article</h3>
+                  <div class="bar"><span style="width: 34%; background: #8b5cf6"></span></div>
+                </article>
+                <article class="week">
+                  <div class="week-top"><b>Week 4</b><span class="status planned">Planned</span></div>
+                  <h3>Spanish OKC article</h3>
+                  <div class="bar"><span style="width: 22%; background: #98a2b3"></span></div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <div class="dark-panel" style="margin-top: 24px">
+            <div class="split" style="grid-template-columns: 0.78fr 1.22fr">
+              <div>
+                <div class="label" style="color: #c4b5fd">Flexible admin side</div>
+                <h2 style="color: white">Control before communication</h2>
+                <p>
+                  The portal should reduce fulfillment friction without forcing a rigid workflow.
+                  Operators need enough control to adapt deliverables, timing, and client visibility.
+                </p>
+              </div>
+              <div class="grid grid-2">
+                <div class="mini">Edit titles, dates, owners, and article briefs</div>
+                <div class="mini">Change status without notifying the client</div>
+                <div class="mini">Hold a deliverable until Naz, Tomas, or ops approves</div>
+                <div class="mini">Decide whether an item is internal-only or shareable</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="wrap footer">
+        Internal concept visual for RankPrompt managed-service operations. Built as a standalone
+        Anderson Collaborative review artifact.
+      </footer>
+    </main>
+  </body>
+</html>
